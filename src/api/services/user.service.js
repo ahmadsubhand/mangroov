@@ -45,3 +45,18 @@ export const login = async (email, password) => {
         throw err;
     }
 }
+
+export const isAuthenticated = async (id) => {
+    try {
+        const user = await prisma.user.findUnique({ where: { id } });
+        if (!user) {
+            throw new customError('User not found', 400)
+        }
+        
+        delete user.password;
+        return user;
+    } catch(err) {
+        console.log("Error in the isAuthenticated service");
+        throw err;
+    }
+}

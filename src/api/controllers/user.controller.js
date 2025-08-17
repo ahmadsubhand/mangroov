@@ -37,15 +37,37 @@ export const login = async (req, res, next) => {
 }
 
 export const logout = async (req, res, next) => {
-  try {
-    res.clearCookie('token', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    })
-    res.status(200).json({});
-  } catch(err) {
-    console.log("Error in the logout controller");
-    next(err);
-  }
+    try {
+        res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        })
+        res.status(200).json({});
+    } catch(err) {
+        console.log("Error in the logout controller");
+        next(err);
+    }
+}
+
+
+export const isAuthenticated = async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const data = await services.isAuthenticated(id);
+        res.status(200).json(data);
+    } catch(err) {
+        console.log("Error in the isAuthenticated controller");
+        next(err);
+    }
+}
+
+export const isOrganization = async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        res.status(200).json({ id });
+    } catch(err) {
+        console.log("Error in the isOrganization controller");
+        next(err);
+    }
 }
