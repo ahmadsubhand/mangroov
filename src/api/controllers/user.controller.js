@@ -39,9 +39,9 @@ export const login = async (req, res, next) => {
 export const logout = async (req, res, next) => {
     try {
         res.clearCookie('token', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
         })
         res.status(200).json({});
     } catch(err) {

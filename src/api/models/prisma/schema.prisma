@@ -58,9 +58,11 @@ model Report {
   id     Int @id @default(autoincrement())
   userId Int @map("user_id")
 
-  photo          String
+  photoUrl       String @map("photo_url")
+  photoId        String @map("photo_id")
   description    String
-  location       String
+  latitude       Float
+  longitude      Float
   classification MLClassification @default(healthy)
   status         ReviewStatus     @default(pending)
 
