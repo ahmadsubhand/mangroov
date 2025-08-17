@@ -2,7 +2,7 @@
 
 ### 1. Clone repository
 ```
-git clone https://github.com/username/express-report-api.git
+git clone https://github.com/ahmadsubhand/mangroov.git
 ```
 
 ### 2. Install dependencies
