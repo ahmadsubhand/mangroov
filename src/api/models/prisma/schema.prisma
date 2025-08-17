@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -35,12 +34,12 @@ enum ReviewStatus {
 model User {
   id Int @id @default(autoincrement())
 
-  fullname String 
-  phoneNumber String @unique
-  role      Role     @default(community)
-  email         String  @unique
-  password      String
-  picture   String?
+  fullName    String  @map("full_name")
+  phoneNumber String  @unique @map("phone_number")
+  role        Role    @default(community)
+  email       String  @unique
+  password    String
+  picture     String?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -56,14 +55,14 @@ model User {
 }
 
 model Report {
-  id Int @id @default(autoincrement())
+  id     Int @id @default(autoincrement())
   userId Int @map("user_id")
 
-  photo String
-  description String
-  location String
+  photo          String
+  description    String
+  location       String
   classification MLClassification @default(healthy)
-  status ReviewStatus @default(pending)
+  status         ReviewStatus     @default(pending)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
