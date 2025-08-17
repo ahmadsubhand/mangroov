@@ -9,5 +9,6 @@ router.post('/login', controllers.login);
 router.post('/logout', controllers.logout);
 router.get('/me', authMiddleware, authHandler, controllers.isAuthenticated);
 router.get('/is-organization', authMiddleware, authHandler, organizationHandler, controllers.isOrganization)
+router.get('/reports', authMiddleware, authHandler, controllers.getAllMyReports);
 
 export default router;

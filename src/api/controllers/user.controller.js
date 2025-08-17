@@ -71,3 +71,15 @@ export const isOrganization = async (req, res, next) => {
         next(err);
     }
 }
+
+export const getAllMyReports = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const { status, classification } = req.query;
+        const data = await services.getAllMyReports(userId, status, classification);
+        res.status(200).json(data);
+    } catch(err) {
+        console.log("Error in the getAllMyReports controller");
+        next(err);
+    }
+}

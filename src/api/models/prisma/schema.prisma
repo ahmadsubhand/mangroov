@@ -19,16 +19,16 @@ enum Role {
 }
 
 enum MLClassification {
-  healthy
-  degraded
   critical
+  degraded
+  healthy
 }
 
 enum ReviewStatus {
   pending
   in_review
-  approved
   rejected
+  approved
 }
 
 model User {

@@ -60,3 +60,32 @@ export const isAuthenticated = async (id) => {
         throw err;
     }
 }
+
+export const getAllMyReports = async (userId, status, classification) => {
+    let statusArray;
+    let classificationArray;
+    const whereClause = { userId };
+    if (status) {
+        statusArray = status.split(",").map(s => s.trim());
+        if (statusArray) whereClause.status = { in: statusArray };
+    }
+    if (classification) {
+        classificationArray = classification.split(",").map(c => c.trim());
+        if (classificationArray) whereClause.classification = { in: classificationArray };
+    }
+
+    try {
+        const reports = await prisma.report.findMany({
+            where: whereClause,
+            include: { 
+                user: { select: { id: true, fullName: true, email: true } }
+            },
+            orderBy: { createdAt: 'desc' },
+        });
+
+        return reports;
+    } catch(err) {
+        console.log("Error in the getAllReports service");
+        throw err;
+    }
+}
