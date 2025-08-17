@@ -1,0 +1,29 @@
+{
+  "name": "mangroov",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "prisma migrate dev --schema=src/api/models/prisma/schema.prisma && node app.js",
+    "migrate": "prisma migrate dev --schema=src/api/models/prisma/schema.prisma",
+    "create": "prisma migrate dev --schema=src/api/models/prisma/schema.prisma --create-only",
+    "reset": "prisma migrate reset --schema=src/api/models/prisma/schema.prisma",
+    "generate": "prisma generate --schema=src/api/models/prisma/schema.prisma",
+    "studio": "prisma studio --schema=src/api/models/prisma/schema.prisma"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.14.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.14.0"
+  }
+}

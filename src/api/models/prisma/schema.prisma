@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  community
+  organization
+}
+
+enum MLClassification {
+  healthy
+  degraded
+  critical
+}
+
+enum ReviewStatus {
+  pending
+  in_review
+  approved
+  rejected
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  fullname String 
+  phoneNumber String @unique
+  role      Role     @default(community)
+  email         String  @unique
+  password      String
+  picture   String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  reports Report[]
+
+  // otpCode       String   @map("otp_code")
+  // otpExpiration DateTime @map("otp_expiration")
+  // isVerifed     Boolean  @default(false) @map("is_verified")
+
+  // googleId        String? @unique @map("google_id")
+  @@map("users")
+}
+
+model Report {
+  id Int @id @default(autoincrement())
+  userId Int @map("user_id")
+
+  photo String
+  description String
+  location String
+  classification MLClassification @default(healthy)
+  status ReviewStatus @default(pending)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([classification])
+  @@index([status])
+  @@map("reports")
+}
